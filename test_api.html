@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Pollinations Test</title>
+    <style>
+        img {
+            width: 300px;
+            height: 300px;
+            border: 1px solid #ccc;
+            margin: 10px;
+        }
+
+        .label {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Testing Pollinations Endpoints</h1>
+
+    <div class="label">1. Legacy (No Key, No Model):</div>
+    <img src="https://image.pollinations.ai/prompt/a%20cool%20dog?nologo=true">
+
+    <div class="label">2. Legacy (No Key, Flux):</div>
+    <img src="https://image.pollinations.ai/prompt/a%20cool%20dog?nologo=true&model=flux">
+
+    <div class="label">3. Legacy (With Key, No Model):</div>
+    <img src="https://image.pollinations.ai/prompt/a%20cool%20dog?nologo=true&key=pk_nnWqebk9TtNY5Md8">
+
+    <div class="label">4. Legacy (With Key, Flux):</div>
+    <img src="https://image.pollinations.ai/prompt/a%20cool%20dog?nologo=true&model=flux&key=pk_nnWqebk9TtNY5Md8">
+
+    <div class="label">5. New (No Key, Turbo):</div>
+    <img src="https://gen.pollinations.ai/image/a%20cool%20dog?model=turbo">
+
+    <div class="label">6. New (With Key, Turbo):</div>
+    <img src="https://gen.pollinations.ai/image/a%20cool%20dog?model=turbo&key=pk_nnWqebk9TtNY5Md8">
+
+    <div class="label">7. No Subdomain (Legacy-style):</div>
+    <img src="https://pollinations.ai/p/a%20cool%20dog">
+
+    <div class="label">8. Legacy WITH Width/Height (No Key):</div>
+    <img src="https://image.pollinations.ai/prompt/a%20cool%20dog?width=768&height=768">
+
+    <div class="label">9. Legacy WITH Width/Height (With Key):</div>
+    <img src="https://image.pollinations.ai/prompt/a%20cool%20dog?width=768&height=768&key=pk_nnWqebk9TtNY5Md8">
+
+    <div class="label">10. Legacy WITH Non-Breaking Hyphen (%E2%80%91):</div>
+    <img src="https://image.pollinations.ai/prompt/snow%E2%80%91capped?width=768&height=768">
+
+    <div class="label">11. Legacy WITH model=flux:</div>
+    <img src="https://image.pollinations.ai/prompt/a%20cool%20dog?width=768&height=768&model=flux">
+
+    <div class="label">12. Legacy WITH nologo=true:</div>
+    <img src="https://image.pollinations.ai/prompt/a%20cool%20dog?width=768&height=768&nologo=true">
+
+    <div class="label">13. Exact Eagle Prompt (Legacy):</div>
+    <img
+        src="https://image.pollinations.ai/prompt/Majestic%20eagle%20soaring%20over%20snow%E2%80%91capped%20peaks%20under%20a%20clear%20blue%20sky?nologo=true&model=flux&seed=a6ff1c01&width=768&height=768&key=pk_nnWqebk9TtNY5Md8">
+</body>
+
+</html>
