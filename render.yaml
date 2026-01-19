@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: visionary-storyboard
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: POLLINATIONS_API_KEY
+        value: pk_nnWqebk9TtNY5Md8
+      - key: SUPABASE_URL
+        value: https://gspteairyjcdgquudcao.supabase.co
+      - key: SUPABASE_KEY
+        value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdzcHRlYWlyeWpjZGdxdXVkY2FvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg4MDAxNzEsImV4cCI6MjA4NDM3NjE3MX0.ZTERLjMgW_sdrmdBnon2n_Kmtb_NP4KXYGGzO2syeQ0
+      - key: PYTHON_VERSION
+        value: 3.9.0
