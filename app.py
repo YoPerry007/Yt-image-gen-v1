@@ -5,12 +5,21 @@ import urllib.parse
 from flask import Flask, render_template, request, jsonify
 from dotenv import load_dotenv
 
+from supabase import create_client, Client
+
 load_dotenv()
 
 app = Flask(__name__)
 
-# User-provided API Key
+# Credentials
 API_KEY = os.getenv("POLLINATIONS_API_KEY", "pk_nnWqebk9TtNY5Md8")
+SUPABASE_URL = os.getenv("SUPABASE_URL")
+SUPABASE_KEY = os.getenv("SUPABASE_KEY")
+
+# Initialize Supabase (optional, only if credentials provided)
+supabase: Client = None
+if SUPABASE_URL and SUPABASE_KEY:
+    supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 def extract_ideas(text):
     """
@@ -116,6 +125,17 @@ def generate():
                 'prompt': prompt,
                 'url': image_url
             })
+            
+            # Log to Supabase if configured
+            if supabase:
+                try:
+                    supabase.table("generations").insert({
+                        "prompt": prompt,
+                        "image_url": image_url,
+                        "seed": str(seed)
+                    }).execute()
+                except Exception as e:
+                    print(f"Supabase Logging Error: {e}")
 
         return jsonify({'images': results})
 
