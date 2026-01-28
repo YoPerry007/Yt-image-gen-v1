@@ -44,16 +44,21 @@ def extract_ideas(text):
                 content = content.split("```")[1].split("```")[0].strip()
             
             prompts = json.loads(content)
-            if isinstance(prompts, list):
+            if isinstance(prompts, list) and len(prompts) > 0:
                 return prompts
             elif isinstance(prompts, dict):
                 for val in prompts.values():
-                    if isinstance(val, list):
+                    if isinstance(val, list) and len(val) > 0:
                         return val
+        
+        # If we got here, API returned empty or invalid
+        print(f"Extraction Warning: API returned empty or invalid content. Using original text as fallback.")
         return [text]
     except Exception as e:
         print(f"Extraction Error: {e}")
-        return [s.strip() for s in text.split('.') if len(s.strip()) > 5]
+        # Return fallback by splitting text as a last resort
+        fallback = [s.strip() for s in text.split('.') if len(s.strip()) > 5]
+        return fallback if fallback else [text]
 
 @app.route('/')
 def index():
@@ -73,7 +78,8 @@ def image_proxy():
         return "No prompt provided", 400
 
     encoded_prompt = urllib.parse.quote(prompt)
-    target_url = f"https://gen.pollinations.ai/image/{encoded_prompt}?width={width}&height={height}&seed={seed}&nologo={nologo}&model=flux"
+    # Using the more reliable pollinations.ai/p endpoint
+    target_url = f"https://pollinations.ai/p/{encoded_prompt}?width={width}&height={height}&seed={seed}&nologo={nologo}&model=flux"
     
     headers = {
         "Authorization": f"Bearer {API_KEY}"
@@ -107,7 +113,8 @@ def generate():
         prompts = extract_ideas(text)
         
         if not prompts:
-            return jsonify({'error': 'Could not extract ideas from text'}), 400
+            # Final safety fallback
+            prompts = [text]
 
         # Step 2: Construct image URLs using our local proxy
         results = []
