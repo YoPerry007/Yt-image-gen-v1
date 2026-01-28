@@ -17,9 +17,12 @@ SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 
 # Initialize Supabase (optional, only if credentials provided)
-supabase: Client = None
+supabase = None
 if SUPABASE_URL and SUPABASE_KEY:
-    supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+    try:
+        supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+    except Exception as e:
+        print(f"Supabase Initialization Warning: {e}")
 
 def extract_ideas(text):
     """
@@ -78,8 +81,8 @@ def image_proxy():
         return "No prompt provided", 400
 
     encoded_prompt = urllib.parse.quote(prompt)
-    # Using the more reliable pollinations.ai/p endpoint
-    target_url = f"https://pollinations.ai/p/{encoded_prompt}?width={width}&height={height}&seed={seed}&nologo={nologo}&model=flux"
+    # Using the direct image endpoint (image.pollinations.ai)
+    target_url = f"https://image.pollinations.ai/prompt/{encoded_prompt}?width={width}&height={height}&seed={seed}&nologo={nologo}&model=flux"
     
     headers = {
         "Authorization": f"Bearer {API_KEY}"
