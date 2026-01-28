@@ -12,7 +12,7 @@ load_dotenv()
 app = Flask(__name__)
 
 # Credentials
-API_KEY = os.getenv("POLLINATIONS_API_KEY", "pk_nnWqebk9TtNY5Md8")
+API_KEY = os.getenv("POLLINATIONS_API_KEY", "sk_SDZuPBYuDG0ICHxtwupPyRIFvs1aCAG8")
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 

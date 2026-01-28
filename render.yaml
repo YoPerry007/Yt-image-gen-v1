@@ -6,7 +6,7 @@ services:
     startCommand: gunicorn app:app
     envVars:
       - key: POLLINATIONS_API_KEY
-        value: pk_nnWqebk9TtNY5Md8
+        value: sk_SDZuPBYuDG0ICHxtwupPyRIFvs1aCAG8
       - key: SUPABASE_URL
         value: https://gspteairyjcdgquudcao.supabase.co
       - key: SUPABASE_KEY
